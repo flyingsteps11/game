@@ -9,9 +9,9 @@ import pillow3 from './assets/images/pillow4.png';
 import pillow4 from './assets/images/pillow5.png';
 
 
-// import bleep from './assets/audio/bleep.wav';
-// import smashsh from './assets/audio/smash.mp3';
-// import marimba from './assets/audio/MarimbaBoy.wav';
+import bleep from './assets/audio/bleep.wav';
+import smashsh from './assets/audio/smash.mp3';
+import marimba from './assets/audio/Tyga.mp3';
 
 
 window.onload = function () {
@@ -33,24 +33,24 @@ window.onload = function () {
     let catchSounds = [];
     let catchSoundCounter = 0;
 
-    // for (let i = 0; i < 5; i++) {
-    //     var catchSound = new Audio();
-    //     catchSound.src = bleep;
-    //     catchSounds.push(catchSound);
-    // }
-    //
-    // var music = new Audio();
-    // music.src = marimba;
-    // music.loop = true;
+    for (let i = 0; i < 5; i++) {
+        var catchSound = new Audio();
+        catchSound.src = bleep;
+        catchSounds.push(catchSound);
+    }
+
+    var music = new Audio();
+    music.src = marimba;
+    music.loop = true;
 
     let smashSounds = [];
     let smashCounter = 0;
 
-    // for (let i = 0; i < 5; i++) {
-    //     var smash = new Audio();
-    //     smash.src = smashsh;
-    //     smashSounds.push(smash);
-    // }
+    for (let i = 0; i < 5; i++) {
+        var smash = new Audio();
+        smash.src = smashsh;
+        smashSounds.push(smash);
+    }
 
     let player;
     let pillows = [];
@@ -88,6 +88,7 @@ window.onload = function () {
                 this.x += this.playerSpeed;
             }
         }
+
     }
 
     //Pillow
@@ -101,7 +102,6 @@ window.onload = function () {
         this.pillowSpeed = Math.floor(Math.random() * 3 + 1);
         this.x = Math.random() * (canvas.width - this.pillowWidth);
         this.y = Math.random() * -canvas.height - this.pillowHeight;
-
 
         this.choosePillow = function () {
             if (this.pillowNumber == 0) {
@@ -117,7 +117,7 @@ window.onload = function () {
                 this.pillowScore = 15 * this.pillowSpeed;
                 this.pillowImage.src = pillow3;
             } else if (this.pillowNumber == 3) {
-                this.pillowType = "tiler";
+                this.pillowType = "tyler";
                 this.pillowScore = 20 * this.pillowSpeed;
                 this.pillowImage.src = pillow4;
             }
@@ -127,7 +127,7 @@ window.onload = function () {
             if (this.y < canvas.height - this.pillowHeight) {
                 this.y += this.pillowSpeed;
             } else {
-                // smashSounds[smashCounter].play();
+                smashSounds[smashCounter].play();
                 if (smashCounter == 4) {
                     smashCounter = 0;
                 } else {
@@ -145,7 +145,7 @@ window.onload = function () {
             if (this.y >= player.y) {
                 if ((this.x > player.x && this.x < (player.x + player.playerWidth)) ||
                     (this.x + this.pillowWidth > player.x && this.x + this.pillowWidth < (player.x + player.playerWidth))) {
-                    // catchSounds[catchSoundCounter].play();
+                     catchSounds[catchSoundCounter].play();
                     if (catchSoundCounter == 4) {
                         catchSoundCounter = 0;
                     } else {
@@ -174,6 +174,8 @@ window.onload = function () {
     }
 
 
+    document.addEventListener("mousemove", mouseMoveHandler, false);
+
     window.addEventListener("keydown", function (e) {
         e.preventDefault();
         if (e.keyCode == 37) {
@@ -185,6 +187,13 @@ window.onload = function () {
             window.clearTimeout(timer);
         }
     });
+
+    function mouseMoveHandler(e) {
+        var relativeX = e.clientX - canvas.offsetLeft;
+        if(relativeX > 0 && relativeX < canvas.width) {
+            this.paddleX = relativeX - this.paddleWidth/2;
+        }
+    }
 
     main();
 
@@ -210,7 +219,7 @@ window.onload = function () {
     }
 
     function updateGame() {
-        // music.play();
+        music.play();
         if (player.pillowMissed >= 10) {
             player.gameOver = true;
         }
@@ -239,7 +248,7 @@ window.onload = function () {
         } else {
 
             for (let i = 0; i < numberOfPillow; i++) {
-                console.log("скорость" + pillows[pillows.length - 1].pillowSpeed);
+
                 pillows.pop();
             }
 

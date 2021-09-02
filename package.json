@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "main.js",
+  "homepage": "https://flyingsteps11.github.io/catcher-pillow",
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "dev": "cross-env NODE_ENV=development webpack --mode development",
     "build": "cross-env NODE_ENV=production webpack --mode production",
     "watch": "cross-env NODE_ENV=development webpack --mode development --watch",
@@ -51,6 +54,7 @@
   },
   "dependencies": {
     "@babel/polyfill": "^7.8.7",
+    "gh-pages": "^3.2.3",
     "lodash": "^4.17.15",
     "normalize.css": "^8.0.1"
   }

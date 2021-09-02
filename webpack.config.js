@@ -1,11 +1,11 @@
 const path = require('path');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCssAssetsWebpackPlugin = require('optimize-css-assets-webpack-plugin');
 const TerserWebpackPlugin = require('terser-webpack-plugin');
-const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+const {BundleAnalyzerPlugin} = require('webpack-bundle-analyzer');
 
 const isDevelopment = process.env.NODE_ENV === 'development';
 const isProduction = !isDevelopment;
@@ -66,16 +66,16 @@ const babelOptions = preset => {
 };
 
 const jsLoaders = () => {
-  const loaders = [{
-      loader: 'babel-loader',
-      options: babelOptions()
-  }];
+    const loaders = [{
+        loader: 'babel-loader',
+        options: babelOptions()
+    }];
 
-  if (isDevelopment) {
-      loaders.push('eslint-loader');
-  }
+    if (isDevelopment) {
+        loaders.push('eslint-loader');
+    }
 
-  return loaders;
+    return loaders;
 };
 
 const plugins = () => {
@@ -146,6 +146,10 @@ module.exports = {
             {
                 test: /\.(png|jpg|svg|gif)$/,
                 use: ['file-loader']
+            },
+            {
+                test: /\.(mp3|wav)$/,
+                loader: 'file-loader'
             },
             {
                 test: /\.(ttf|woff|woff2|eot)$/,
